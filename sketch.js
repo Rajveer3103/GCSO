@@ -1,40 +1,34 @@
-var wall
-var car1
-var speed
-var weight
-var deformation
+var drawing= []
+var currentPath = []
 
 function setup() {
-  createCanvas(800,400);
-  car1=createSprite(50, 200, 50, 50);
-  wall=createSprite(700, 200, 60,200);
-
-  speed=random(55,90)
-  weight=random(400,1500)
-
-  car1.velocityX=speed
+  createCanvas(400,400);
+ canvas.mousePressed (startPath);
 }
 
+function startPath(){
+  currentPath= []
+  drawing.push(currentPath)
+}
 function draw() {
-  background(255,255,255);  
+  background(0);  
 
-if(wall.x-car1.x < (car1.width+wall.width)/2){
-
-car1.velocityX=0
-deformation=0.5*weight*speed*speed/22509
-
-if(deformation>180){
-  car1.shapeColor=color(255,0,0)
+if(mouseIsPressed){
+  var point={
+    x: mouseX,
+    y: mouseY
+  }
+  drawing.push(point)
 }
-
-if(deformation<180&& deformation>100){
-  car1.shapeColor=color(230,230,0)
+stroke(255)
+strokeWeight(4)
+noFill()
+for(var i=0;i<drawing.length; i++){
+var path = drawing[i]
 }
-
-if(deformation<100){
-  car1.shapeColor=color(0,255,0)
-}
-}
-
-  drawSprites();
+beginShape()
+for(var j=0;j<drawing.length; j++){
+  vertex(drawing[j].x,drawing[j].y)
+  }
+endShape()
 }
